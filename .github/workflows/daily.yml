@@ -1,0 +1,33 @@
+name: daily-deals
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # 매일 09:00 KST (UTC 00:00)
+  workflow_dispatch:       # Actions 탭에서 수동 실행 가능
+
+permissions:
+  contents: write          # 가격 이력 DB를 저장소에 커밋하기 위해 필요
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Collect prices & send alerts
+        run: python main.py run
+        env:
+          TP_TOKEN: ${{ secrets.TP_TOKEN }}
+          TP_MARKER: ${{ secrets.TP_MARKER }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - name: Save price history & site
+        run: |
+          git config user.name "deal-bot"
+          git config user.email "deal-bot@users.noreply.github.com"
+          git add data/prices.db docs/
+          git diff --cached --quiet || git commit -m "price history $(date -u +%F)"
+          git push
