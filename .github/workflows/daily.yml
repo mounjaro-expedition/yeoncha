@@ -6,28 +6,41 @@ on:
   workflow_dispatch:       # Actions 탭에서 수동 실행 가능
 
 permissions:
-  contents: write          # 가격 이력 DB를 저장소에 커밋하기 위해 필요
+  contents: write          # 가격 이력 DB와 사이트를 저장소에 저장하기 위해 필요
+
+concurrency:
+  group: daily-deals       # 실수로 두 번 눌러도 동시에 돌지 않게
+  cancel-in-progress: false
 
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - name: Collect prices & send alerts
+      - name: 연차하루면 충분행
         run: python main.py run
         env:
           TP_TOKEN: ${{ secrets.TP_TOKEN }}
           TP_MARKER: ${{ secrets.TP_MARKER }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      - name: Save price history & site
+      - name: 비만주사 원정대
+        if: always()       # 위 단계가 실패해도 원정대는 실행
+        run: python japan.py
+        env:
+          TP_TOKEN: ${{ secrets.TP_TOKEN }}
+          TP_MARKER: ${{ secrets.TP_MARKER }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID_JAPAN: ${{ secrets.TELEGRAM_CHAT_ID_JAPAN }}
+      - name: Save price history & sites
+        if: always()
         run: |
           git config user.name "deal-bot"
           git config user.email "deal-bot@users.noreply.github.com"
           git add data/prices.db docs/
-          git diff --cached --quiet || git commit -m "price history $(date -u +%F)"
+          git diff --cached --quiet || git commit -m "daily update $(date -u +%F)"
           git push
