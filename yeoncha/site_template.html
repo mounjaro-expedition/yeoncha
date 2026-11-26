@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>연차 하루로 가는 해외여행 항공권 특가 | 연차하루면 충분행</title>
+<meta name="description" content="한국 공휴일에 연차 딱 하루만 붙여 다녀올 수 있는 해외여행 날짜와 왕복 항공권 특가를 매일 아침 모아 드려요.">
+<meta property="og:title" content="연차하루면 충분행">
+<meta property="og:description" content="연차 하루로 떠나는 해외여행, 오늘의 항공권 특가">
+<meta property="og:type" content="website">
+<meta property="og:url" content="__SITE_URL__">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<!-- 애드센스 승인 후 여기에 스크립트를 넣으세요 -->
+<style>
+:root {
+  color-scheme: light;
+  --paper: #F4F6FA;
+  --surface: #FFFFFF;
+  --ink: #1A2340;
+  --muted: #5B6480;
+  --line: #DCE1EC;
+  --red: #D7263D;
+  --blue: #2D5BD7;
+  --marker: #FFD43B;
+  --marker-ink: #1A2340;
+  --display: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --body: var(--display);
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #11162A;
+    --surface: #1A2140;
+    --ink: #E8ECF6;
+    --muted: #A3ABC6;
+    --line: #2C3557;
+    --red: #FF6377;
+    --blue: #86A6FF;
+  }
+}
+*, *::before, *::after { box-sizing: inherit; }
+[hidden] { display: none !important; }  /* 디자인 CSS가 숨김 속성을 덮어쓰지 않게 */
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 16px/1.7 var(--body);
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+/* 헤더 */
+header.top { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+.logo { font-family: var(--display); font-weight: 800; font-size: 19px; text-decoration: none; letter-spacing: -0.04em; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 700 15px/1 var(--body); text-decoration: none;
+  padding: 12px 16px; border-radius: 10px; border: 0; cursor: pointer;
+  background: var(--ink); color: var(--paper);
+}
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+
+/* 히어로 */
+.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; padding: 40px 0 56px; }
+.hero h1 {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(42px, 7.5vw, 78px); line-height: 1.15; letter-spacing: -0.05em;
+  margin: 0 0 20px;
+}
+.hero p { color: var(--muted); font-size: 17px; max-width: 30em; margin: 0 0 24px; }
+.hero-card { background: var(--surface); border-radius: 18px; padding: 24px; border: 1px solid var(--line); }
+.hero-card .cap { font-size: 14px; color: var(--muted); margin: 14px 0 0; }
+
+/* 달력 칸: 이 사이트의 핵심 시각 요소 */
+.strip { display: flex; gap: 6px; }
+.day {
+  flex: 1 1 0; min-width: 44px; max-width: 72px;
+  border-radius: 10px; padding: 8px 4px 10px; text-align: center;
+  background: var(--paper); position: relative;
+}
+.day .wd { font-size: 12px; font-weight: 700; }
+.day .dd { font-family: var(--display); font-weight: 700; font-size: 24px; line-height: 1.15; letter-spacing: -0.03em; }
+.day .tag { font-size: 11px; display: block; margin-top: 2px; min-height: 1.4em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.day.red { color: var(--red); }
+.day.sat { color: var(--blue); }
+.day.leave { color: var(--marker-ink); }
+.day.leave::before {
+  content: ""; position: absolute; inset: 0; border-radius: 10px; z-index: 0;
+  background: linear-gradient(100deg, var(--marker) 0 100%) no-repeat left / 100% 100%;
+  transform: rotate(-1.5deg);
+}
+.day > * { position: relative; z-index: 1; }
+.hero .strip .day { min-width: 0; }
+.hero .strip .dd { font-size: clamp(22px, 4vw, 34px); }
+.hero .day.leave::before { animation: swipe 0.7s 0.4s cubic-bezier(.2,.7,.3,1) both; }
+@keyframes swipe { from { background-size: 0% 100%; } to { background-size: 100% 100%; } }
+@media (prefers-reduced-motion: reduce) { .hero .day.leave::before { animation: none; } }
+
+/* 필터 */
+.status { color: var(--muted); font-size: 15px; margin: 0 0 14px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.chip {
+  font: 500 14px/1 var(--body); padding: 10px 14px; border-radius: 999px; cursor: pointer;
+  background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filter-note { font-size: 14px; color: var(--muted); min-height: 1.6em; margin: 6px 0 14px; }
+.filter-note button { font: inherit; color: var(--blue); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+
+/* 특가 목록 */
+h2 { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 4.2vw, 36px); line-height: 1.3; margin: 0 0 12px; letter-spacing: -0.04em; }
+.deals { list-style: none; padding: 0; margin: 0 0 72px; border-top: 2px solid var(--ink); }
+.deal {
+  display: grid; grid-template-columns: 190px 1fr 190px; gap: 8px 24px; align-items: center;
+  grid-template-areas: "city strip price" "city strip act";
+  padding: 22px 0; border-bottom: 1px solid var(--line);
+}
+.deal .who { grid-area: city; }
+.deal .strip { grid-area: strip; }
+.deal .pricebox { grid-area: price; align-self: end; }
+.deal .act { grid-area: act; align-self: start; }
+.deal .day, .win .day { background: var(--surface); }
+.deal .city { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1.25; letter-spacing: -0.04em; }
+.deal .meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.deal .price { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1.25; text-align: right; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.deal .why { font-size: 14px; color: var(--red); font-weight: 700; text-align: right; margin-top: 2px; }
+.deal .act { text-align: right; }
+.empty { padding: 40px 0; color: var(--muted); }
+
+/* 연휴 달력 */
+.months { margin-bottom: 72px; }
+.month { margin-bottom: 28px; }
+.month h3 { font-family: var(--display); font-weight: 700; font-size: 20px; margin: 0 0 10px; letter-spacing: -0.03em; }
+.win .desc { font-size: 15px; margin-top: 10px; }
+.win .desc b { font-weight: 700; }
+
+/* 구독 */
+.subscribe { background: var(--ink); color: var(--paper); border-radius: 20px; padding: 36px; margin-bottom: 48px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.subscribe h2 { margin: 0 0 6px; }
+.subscribe p { margin: 0; opacity: .8; }
+.subscribe .btn { background: var(--marker); color: var(--marker-ink); font-size: 16px; padding: 14px 20px; }
+
+.mock-banner { background: var(--marker); color: var(--marker-ink); text-align: center; font-weight: 700; font-size: 14px; padding: 10px 16px; }
+.deal .times { font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.deal .meta + .times { margin-top: 6px; }
+
+/* 수하물·최저가 */
+.bag { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.bag.lcc b { color: var(--ink); font-weight: 700; }
+.toggle { display: inline-flex; align-items: center; gap: 10px; font: 500 14px/1.4 var(--body); cursor: pointer; margin: 0 0 14px; user-select: none; }
+.toggle input { width: 20px; height: 20px; accent-color: var(--ink); margin: 0; }
+.adj { font-size: 12px; color: var(--muted); text-align: right; }
+.low { list-style: none; padding: 0; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: hidden; }
+.low li + li { border-top: 1px solid var(--line); }
+.low a, .low .row { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "c p" "sub p"; gap: 2px 12px; align-items: center; padding: 12px 14px; text-decoration: none; }
+.low .c { grid-area: c; }
+.low .sub { grid-area: sub; }
+.low .p { grid-area: p; }
+.low a:hover { background: var(--paper); }
+.low .c { font-weight: 700; letter-spacing: -0.03em; }
+.low .sub { font-size: 12.5px; color: var(--muted); line-height: 1.5; white-space: pre-line; }
+.low .p { font-weight: 800; letter-spacing: -0.03em; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; color: #fff; background: var(--red); border-radius: 6px; padding: 1px 6px; margin-left: 6px; vertical-align: 2px; white-space: nowrap; }
+.badge.night { background: #4B3FA8; }
+.badge.warn { background: #B4540A; }
+.stay { font-size: 14px; color: var(--ink); margin-top: 6px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.warn { font-size: 13px; color: var(--red); margin-top: 4px; }
+.stay-why { flex-basis: 100%; font-size: 13px; color: var(--muted); }
+.stay .badge { margin-left: 0; vertical-align: 0; }
+.low .more { width: 100%; font: 500 14px/1 var(--body); padding: 13px; border: 0; background: none; color: var(--blue); cursor: pointer; }
+.low .none { padding: 14px; font-size: 14px; color: var(--muted); }
+.win { display: block; padding: 20px 0; border-top: 1px solid var(--line); }
+.win .foot { margin-top: 12px; }
+footer { font-size: 13px; color: var(--muted); padding: 0 0 40px; }
+footer p { margin: 4px 0; max-width: 60em; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding-top: 16px; gap: 28px; }
+  .deal { grid-template-columns: 1fr auto; grid-template-areas: "city price" "strip strip" "act act"; gap: 14px 16px; }
+  .deal .pricebox { align-self: start; }
+  .deal .city, .deal .price { font-size: 22px; }
+  .deal .act .btn, .win .btn { width: 100%; justify-content: center; }
+  .filters { flex-wrap: nowrap; overflow-x: auto; margin: 0 -20px 8px; padding: 0 20px 4px; scrollbar-width: none; }
+  .filters::-webkit-scrollbar { display: none; }
+  .chip { flex: 0 0 auto; }
+  .subscribe { padding: 28px 22px; }
+}
+</style>
+</head>
+<body>
+<div class="mock-banner" id="mock" hidden>테스트 데이터예요. 화면 확인용 가짜 가격이라 실제 가격과 달라요.</div>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#">연차하루면 충분행</a>
+    <a class="btn ghost" id="tg-top" href="#subscribe">알림 받기</a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>연차 하루면<br>해외 간다</h1>
+      <p>공휴일에 연차 딱 하루만 붙여서 다녀올 수 있는 날짜를 계산하고, 그 날짜의 직항 왕복 항공권이 평소보다 쌀 때만 골라 매일 아침 알려 드려요.</p>
+      <a class="btn" href="#deals">오늘의 특가 보기</a>
+    </div>
+    <div class="hero-card" id="hero-card"></div>
+  </section>
+
+  <section id="deals">
+    <h2>오늘의 특가</h2>
+    <p class="status" id="status"></p>
+    <div class="filters" id="f-month" role="group" aria-label="출발 월"></div>
+    <div class="filters" id="f-city" role="group" aria-label="도시"></div>
+    <div class="filters" id="f-kind" role="group" aria-label="일정 종류"></div>
+    <label class="toggle" hidden><input type="checkbox" class="bag-toggle"> 짐 부치는 여행 기준으로 보기 (LCC 15kg 왕복 수하물 추정액 포함)</label>
+    <p class="filter-note" id="note" aria-live="polite"></p>
+    <ul class="deals" id="list"></ul>
+  </section>
+
+  <!-- 광고 자리: 애드센스 승인 후 광고 단위 코드를 여기에 -->
+
+  <section class="months">
+    <h2>연차 하루로 만드는 연휴</h2>
+    <p class="status">노란 칸이 연차 쓰는 날이에요. 연휴마다 주요 여행지의 오늘 직항 왕복 최저가를 보여 드려요.</p>
+    <label class="toggle" hidden><input type="checkbox" class="bag-toggle"> 짐 부치는 여행 기준으로 보기 (LCC 15kg 왕복 수하물 추정액 포함)</label>
+    <div id="months"></div>
+  </section>
+
+  <section class="subscribe" id="subscribe">
+    <div>
+      <h2>특가가 뜨면 바로 알려 드릴게요</h2>
+      <p>텔레그램 채널에서 매일 아침 한 번, 새로 찾은 특가만 보내요.</p>
+    </div>
+    <a class="btn" id="tg" href="#" target="_blank" rel="noopener">텔레그램으로 구독하기</a>
+  </section>
+
+  <footer>
+    <p>가격은 매일 아침 다시 확인한 직항 왕복 최저가 기준이며 실제 예약 시 달라질 수 있어요. 예약 전 항공사·예약 사이트에서 최종 가격을 꼭 확인하세요.</p>
+    <p>이 사이트의 링크를 통해 예약하면 운영자가 소정의 제휴 수수료를 받을 수 있어요. 이용자가 내는 금액은 같아요.</p>
+    <p>공휴일은 우주항공청 월력요항 기준이에요. 5인 미만 사업장은 공휴일 휴무가 의무가 아닐 수 있어요.</p>
+  </footer>
+</div>
+
+<script>
+const DATA = __DATA__;
+const $ = (s) => document.querySelector(s);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const won = (n) => n.toLocaleString("ko-KR") + "원";
+const state = { month: "all", city: "all", kind: "all", win: null, bags: false };
+
+// 짐 부치는 여행: LCC는 수하물 추정액을 더한 가격
+const eff = (o) => (state.bags && o.bag === "lcc" && o.addon) ? o.price + o.addon : o.price;
+const adjusted = (o) => state.bags && o.bag === "lcc" && o.addon;
+const hasAddon = DATA.deals.some(o => o.addon) || DATA.windows.some(w => w.lowest.some(o => o.addon));
+
+function strip(cells) {
+  const s = el("div", "strip");
+  for (const c of cells) {
+    const d = el("div", "day " + c.kind);
+    d.append(el("div", "wd", c.wd), el("div", "dd", c.d));
+    const tag = c.kind === "leave" ? "연차" : (c.name || "").replace(/^대체공휴일.*/, "대체휴일");
+    d.append(el("span", "tag", tag));
+    if (c.name) d.title = c.name;
+    s.append(d);
+  }
+  return s;
+}
+
+function bagLine(o) {
+  const b = el("div", "bag " + o.bag);
+  if (o.bag === "lcc") {
+    b.append(`${o.airline}, `, el("b", null, "위탁수하물 미포함일 수 있어요"));
+    if (o.addon) b.append(` (15kg 왕복 추가 약 ${won(o.addon)})`);
+  } else {
+    b.textContent = `${o.airline}, ${o.bagText}`;
+  }
+  return b;
+}
+
+function stayLine(o) {
+  if (o.stayH == null) return null;
+  const s = el("div", "stay");
+  if (o.night) s.append(el("span", "badge night", "밤도깨비"));
+  s.append(`현지 체류 약 ${o.stayH}시간`);
+  if (o.night) s.append(el("span", "stay-why", o.nightWhy));
+  return s;
+}
+
+function chipRow(root, items, key) {
+  root.replaceChildren();
+  for (const [val, label] of items) {
+    const b = el("button", "chip", label);
+    b.type = "button";
+    b.setAttribute("aria-pressed", String(state[key] === val));
+    b.onclick = () => { state[key] = val; state.win = null; render(); };
+    root.append(b);
+  }
+}
+
+function render() {
+  const months = [...new Map(DATA.deals.map(d => [d.month, d.monthLabel])).entries()].sort();
+  const cities = [...new Set(DATA.deals.map(d => d.city))];
+  chipRow($("#f-month"), [["all", "전체 기간"], ...months], "month");
+  chipRow($("#f-city"), [["all", "모든 도시"], ...cities.map(c => [c, c])], "city");
+  const nNight = DATA.deals.filter(d => d.night).length;
+  chipRow($("#f-kind"), [["all", "모든 일정"], ["full", `알찬 일정 ${DATA.deals.length - nNight}`], ["night", `밤도깨비 ${nNight}`]], "kind");
+
+  const list = DATA.deals.filter(d =>
+    (state.month === "all" || d.month === state.month) &&
+    (state.city === "all" || d.city === state.city) &&
+    (state.kind === "all" || (state.kind === "night") === d.night) &&
+    (!state.win || d.id === state.win));
+
+  const note = $("#note");
+  note.replaceChildren();
+  if (state.win) {
+    const w = DATA.windows.find(x => x.id === state.win) || DATA.deals.find(x => x.id === state.win);
+    note.append(`${w ? w.range : ""} 일정만 보고 있어요. `);
+    const clear = el("button", null, "전체 보기");
+    clear.onclick = () => { state.win = null; render(); };
+    note.append(clear);
+  }
+
+  const ul = $("#list");
+  ul.replaceChildren();
+  if (!list.length) {
+    ul.append(el("li", "empty", state.win
+      ? "이 일정은 오늘 특가가 없어요. 아래 연휴별 최저가를 확인해 보세요."
+      : "오늘은 평소보다 확실히 싼 항공권이 없어요. 아래에서 연휴별 오늘의 최저가를 볼 수 있어요."));
+    return;
+  }
+  for (const d of list) {
+    const li = el("li", "deal");
+    const who = el("div", "who");
+    who.append(el("div", "city", d.city), el("div", "meta", d.range), el("div", "meta", `${d.title} 직항`));
+    if (d.depTime) who.append(
+      el("div", "times", `가는 편 ${d.depTime} 출발` + (d.arrTime ? `, ${d.arrTime} 도착` : "")),
+      el("div", "times", `오는 편 ${d.retTime} 출발` + (d.homeTime ? `, ${d.homeTime} 도착` : "")));
+    const st = stayLine(d);
+    if (st) who.append(st);
+    if (d.warn) who.append(el("div", "warn", d.warn));
+    who.append(bagLine(d));
+    const pb = el("div", "pricebox");
+    pb.append(el("div", "price", won(eff(d))));
+    if (adjusted(d)) pb.append(el("div", "adj", "15kg 왕복 수하물 추정 포함"));
+    else if (state.bags && d.bag === "lcc") pb.append(el("div", "adj", "수하물 요금 미확인"));
+    pb.append(el("div", "why", d.reason));
+    const act = el("div", "act");
+    if (d.link) {
+      const a = el("a", "btn", "가격 확인하기");
+      a.href = d.link; a.target = "_blank"; a.rel = "noopener sponsored";
+      act.append(a);
+    }
+    li.append(who, strip(d.strip), pb, act);
+    ul.append(li);
+  }
+}
+
+function renderHero() {
+  const pick = DATA.windows.find(w => w.days >= 5) || DATA.windows[0];
+  const card = $("#hero-card");
+  if (!pick) return;
+  card.append(strip(pick.strip));
+  card.append(el("p", "cap", `${pick.range}, ${pick.leave[0] || ""} 하루만 쉬면 ${pick.days}일`));
+}
+
+const SHOW = 5;
+const expanded = new Set();
+
+function lowestList(w) {
+  const ul = el("ul", "low");
+  if (!w.checked) { ul.append(el("li", "none", "아직 먼 일정이라 가격은 가까워지면 보여 드려요.")); return ul; }
+  if (!w.lowest.length) { ul.append(el("li", "none", "오늘은 이 일정의 직항 가격을 찾지 못했어요.")); return ul; }
+  const items = [...w.lowest].sort((a, b) => eff(a) - eff(b));
+  const shown = expanded.has(w.id) ? items : items.slice(0, SHOW);
+  for (const o of shown) {
+    const li = el("li");
+    const row = el(o.link ? "a" : "div", o.link ? null : "row");
+    if (o.link) { row.href = o.link; row.target = "_blank"; row.rel = "noopener sponsored"; }
+    const c = el("div", "c", o.city);
+    if (o.deal) c.append(el("span", "badge", "특가"));
+    if (o.night) c.append(el("span", "badge night", "밤도깨비"));
+    if (o.warn) c.append(el("span", "badge warn", "새벽 귀국"));
+    const bagShort = adjusted(o) ? "15kg 왕복 수하물 추정 포함" : (state.bags && o.bag === "lcc") ? "수하물 요금 미확인" : o.bag === "lcc" ? "수하물 별도" : (o.bag === "included" ? "수하물 포함" : "수하물 확인 필요");
+    const sub = el("div", "sub", `${o.airline}, ${bagShort}` + (o.stayH != null ? `, 현지 ${o.stayH}시간` : "") + (o.depTime ? `\n가는 편 ${o.depTime} 출발, 오는 편 ${o.retTime} 출발` : ""));
+    const p = el("div", "p", won(eff(o)));
+    row.append(c, sub, p);
+    li.append(row);
+    ul.append(li);
+  }
+  if (items.length > SHOW) {
+    const li = el("li");
+    const more = el("button", "more", expanded.has(w.id) ? "접기" : `${items.length - SHOW}곳 더 보기`);
+    more.type = "button";
+    more.onclick = () => { expanded.has(w.id) ? expanded.delete(w.id) : expanded.add(w.id); renderMonths(); };
+    li.append(more);
+    ul.append(li);
+  }
+  return ul;
+}
+
+function renderMonths() {
+  const root = $("#months");
+  root.replaceChildren();
+  const groups = new Map();
+  for (const w of DATA.windows) {
+    const key = w.month.slice(0, 4) + "년 " + w.monthLabel;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(w);
+  }
+  for (const [label, ws] of groups) {
+    const m = el("div", "month");
+    m.append(el("h3", null, label));
+    for (const w of ws) {
+      const row = el("div", "win");
+      row.append(strip(w.strip));
+      const desc = el("div", "desc");
+      desc.append(el("b", null, w.title), ` ${w.range}, ${w.holidays.join(", ")}`);
+      row.append(desc, lowestList(w));
+      const n = DATA.deals.filter(d => d.id === w.id).length;
+      if (n) {
+        const foot = el("div", "foot");
+        const b = el("button", "btn ghost", `이 연휴 특가 ${n}건 자세히 보기`);
+        b.type = "button";
+        b.onclick = () => { state.win = w.id; state.month = "all"; state.city = "all"; render(); $("#deals").scrollIntoView({ behavior: "smooth" }); };
+        foot.append(b);
+        row.append(foot);
+      }
+      m.append(row);
+    }
+    root.append(m);
+  }
+}
+
+if (DATA.mock) $("#mock").hidden = false;
+if (hasAddon) {
+  document.querySelectorAll(".toggle").forEach(t => t.hidden = false);
+  document.querySelectorAll(".bag-toggle").forEach(cb => cb.onchange = () => {
+    state.bags = cb.checked;
+    document.querySelectorAll(".bag-toggle").forEach(x => x.checked = cb.checked);
+    render(); renderMonths();
+  });
+}
+$("#status").textContent = DATA.deals.length
+  ? `${DATA.updated} 기준, 평소보다 싼 직항 항공권 ${DATA.deals.length}건을 찾았어요.`
+  : `${DATA.updated} 기준, 오늘은 특가가 없어요.`;
+if (DATA.telegram) { $("#tg").href = DATA.telegram; $("#tg-top").href = DATA.telegram; $("#tg-top").target = "_blank"; }
+renderHero();
+render();
+renderMonths();
+</script>
+</body>
+</html>

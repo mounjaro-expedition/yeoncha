@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>연차 하루로 가는 해외여행 항공권 특가 | 연차하루면 충분행</title>
+<meta name="description" content="한국 공휴일에 연차 딱 하루만 붙여 다녀올 수 있는 해외여행 날짜와 왕복 항공권 특가를 매일 아침 모아 드려요.">
+<meta property="og:title" content="연차하루면 충분행">
+<meta property="og:description" content="연차 하루로 떠나는 해외여행, 오늘의 항공권 특가">
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<!-- 애드센스 승인 후 여기에 스크립트를 넣으세요 -->
+<style>
+:root {
+  color-scheme: light;
+  --paper: #F4F6FA;
+  --surface: #FFFFFF;
+  --ink: #1A2340;
+  --muted: #5B6480;
+  --line: #DCE1EC;
+  --red: #D7263D;
+  --blue: #2D5BD7;
+  --marker: #FFD43B;
+  --marker-ink: #1A2340;
+  --display: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --body: var(--display);
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #11162A;
+    --surface: #1A2140;
+    --ink: #E8ECF6;
+    --muted: #A3ABC6;
+    --line: #2C3557;
+    --red: #FF6377;
+    --blue: #86A6FF;
+  }
+}
+*, *::before, *::after { box-sizing: inherit; }
+[hidden] { display: none !important; }  /* 디자인 CSS가 숨김 속성을 덮어쓰지 않게 */
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 16px/1.7 var(--body);
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+/* 헤더 */
+header.top { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+.logo { font-family: var(--display); font-weight: 800; font-size: 19px; text-decoration: none; letter-spacing: -0.04em; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 700 15px/1 var(--body); text-decoration: none;
+  padding: 12px 16px; border-radius: 10px; border: 0; cursor: pointer;
+  background: var(--ink); color: var(--paper);
+}
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+
+/* 히어로 */
+.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; padding: 40px 0 56px; }
+.hero h1 {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(42px, 7.5vw, 78px); line-height: 1.15; letter-spacing: -0.05em;
+  margin: 0 0 20px;
+}
+.hero p { color: var(--muted); font-size: 17px; max-width: 30em; margin: 0 0 24px; }
+.hero-card { background: var(--surface); border-radius: 18px; padding: 24px; border: 1px solid var(--line); }
+.hero-card .cap { font-size: 14px; color: var(--muted); margin: 14px 0 0; }
+
+/* 달력 칸: 이 사이트의 핵심 시각 요소 */
+.strip { display: flex; gap: 6px; }
+.day {
+  flex: 1 1 0; min-width: 44px; max-width: 72px;
+  border-radius: 10px; padding: 8px 4px 10px; text-align: center;
+  background: var(--paper); position: relative;
+}
+.day .wd { font-size: 12px; font-weight: 700; }
+.day .dd { font-family: var(--display); font-weight: 700; font-size: 24px; line-height: 1.15; letter-spacing: -0.03em; }
+.day .tag { font-size: 11px; display: block; margin-top: 2px; min-height: 1.4em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.day.red { color: var(--red); }
+.day.sat { color: var(--blue); }
+.day.leave { color: var(--marker-ink); }
+.day.leave::before {
+  content: ""; position: absolute; inset: 0; border-radius: 10px; z-index: 0;
+  background: linear-gradient(100deg, var(--marker) 0 100%) no-repeat left / 100% 100%;
+  transform: rotate(-1.5deg);
+}
+.day > * { position: relative; z-index: 1; }
+.hero .strip .day { min-width: 0; }
+.hero .strip .dd { font-size: clamp(22px, 4vw, 34px); }
+.hero .day.leave::before { animation: swipe 0.7s 0.4s cubic-bezier(.2,.7,.3,1) both; }
+@keyframes swipe { from { background-size: 0% 100%; } to { background-size: 100% 100%; } }
+@media (prefers-reduced-motion: reduce) { .hero .day.leave::before { animation: none; } }
+
+/* 필터 */
+.status { color: var(--muted); font-size: 15px; margin: 0 0 14px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.chip {
+  font: 500 14px/1 var(--body); padding: 10px 14px; border-radius: 999px; cursor: pointer;
+  background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filter-note { font-size: 14px; color: var(--muted); min-height: 1.6em; margin: 6px 0 14px; }
+.filter-note button { font: inherit; color: var(--blue); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+
+/* 특가 목록 */
+h2 { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 4.2vw, 36px); line-height: 1.3; margin: 0 0 12px; letter-spacing: -0.04em; }
+.deals { list-style: none; padding: 0; margin: 0 0 72px; border-top: 2px solid var(--ink); }
+.deal {
+  display: grid; grid-template-columns: 190px 1fr 190px; gap: 8px 24px; align-items: center;
+  grid-template-areas: "city strip price" "city strip act";
+  padding: 22px 0; border-bottom: 1px solid var(--line);
+}
+.deal .who { grid-area: city; }
+.deal .strip { grid-area: strip; }
+.deal .pricebox { grid-area: price; align-self: end; }
+.deal .act { grid-area: act; align-self: start; }
+.deal .day, .win .day { background: var(--surface); }
+.deal .city { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1.25; letter-spacing: -0.04em; }
+.deal .meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.deal .price { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1.25; text-align: right; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.deal .why { font-size: 14px; color: var(--red); font-weight: 700; text-align: right; margin-top: 2px; }
+.deal .act { text-align: right; }
+.empty { padding: 40px 0; color: var(--muted); }
+
+/* 연휴 달력 */
+.months { margin-bottom: 72px; }
+.month { margin-bottom: 28px; }
+.month h3 { font-family: var(--display); font-weight: 700; font-size: 20px; margin: 0 0 10px; letter-spacing: -0.03em; }
+.win .desc { font-size: 15px; margin-top: 10px; }
+.win .desc b { font-weight: 700; }
+
+/* 구독 */
+.subscribe { background: var(--ink); color: var(--paper); border-radius: 20px; padding: 36px; margin-bottom: 48px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.subscribe h2 { margin: 0 0 6px; }
+.subscribe p { margin: 0; opacity: .8; }
+.subscribe .btn { background: var(--marker); color: var(--marker-ink); font-size: 16px; padding: 14px 20px; }
+
+.mock-banner { background: var(--marker); color: var(--marker-ink); text-align: center; font-weight: 700; font-size: 14px; padding: 10px 16px; }
+.deal .times { font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.deal .meta + .times { margin-top: 6px; }
+
+/* 수하물·최저가 */
+.bag { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.bag.lcc b { color: var(--ink); font-weight: 700; }
+.toggle { display: inline-flex; align-items: center; gap: 10px; font: 500 14px/1.4 var(--body); cursor: pointer; margin: 0 0 14px; user-select: none; }
+.toggle input { width: 20px; height: 20px; accent-color: var(--ink); margin: 0; }
+.adj { font-size: 12px; color: var(--muted); text-align: right; }
+.low { list-style: none; padding: 0; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: hidden; }
+.low li + li { border-top: 1px solid var(--line); }
+.low a, .low .row { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "c p" "sub p"; gap: 2px 12px; align-items: center; padding: 12px 14px; text-decoration: none; }
+.low .c { grid-area: c; }
+.low .sub { grid-area: sub; }
+.low .p { grid-area: p; }
+.low a:hover { background: var(--paper); }
+.low .c { font-weight: 700; letter-spacing: -0.03em; }
+.low .sub { font-size: 12.5px; color: var(--muted); line-height: 1.5; white-space: pre-line; }
+.low .p { font-weight: 800; letter-spacing: -0.03em; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; color: #fff; background: var(--red); border-radius: 6px; padding: 1px 6px; margin-left: 6px; vertical-align: 2px; white-space: nowrap; }
+.badge.night { background: #4B3FA8; }
+.badge.warn { background: #B4540A; }
+.stay { font-size: 14px; color: var(--ink); margin-top: 6px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.warn { font-size: 13px; color: var(--red); margin-top: 4px; }
+.stay-why { flex-basis: 100%; font-size: 13px; color: var(--muted); }
+.stay .badge { margin-left: 0; vertical-align: 0; }
+.low .more { width: 100%; font: 500 14px/1 var(--body); padding: 13px; border: 0; background: none; color: var(--blue); cursor: pointer; }
+.low .none { padding: 14px; font-size: 14px; color: var(--muted); }
+.win { display: block; padding: 20px 0; border-top: 1px solid var(--line); }
+.win .foot { margin-top: 12px; }
+footer { font-size: 13px; color: var(--muted); padding: 0 0 40px; }
+footer p { margin: 4px 0; max-width: 60em; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding-top: 16px; gap: 28px; }
+  .deal { grid-template-columns: 1fr auto; grid-template-areas: "city price" "strip strip" "act act"; gap: 14px 16px; }
+  .deal .pricebox { align-self: start; }
+  .deal .city, .deal .price { font-size: 22px; }
+  .deal .act .btn, .win .btn { width: 100%; justify-content: center; }
+  .filters { flex-wrap: nowrap; overflow-x: auto; margin: 0 -20px 8px; padding: 0 20px 4px; scrollbar-width: none; }
+  .filters::-webkit-scrollbar { display: none; }
+  .chip { flex: 0 0 auto; }
+  .subscribe { padding: 28px 22px; }
+}
+</style>
+</head>
+<body>
+<div class="mock-banner" id="mock" hidden>테스트 데이터예요. 화면 확인용 가짜 가격이라 실제 가격과 달라요.</div>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#">연차하루면 충분행</a>
+    <a class="btn ghost" id="tg-top" href="#subscribe">알림 받기</a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>연차 하루면<br>해외 간다</h1>
+      <p>공휴일에 연차 딱 하루만 붙여서 다녀올 수 있는 날짜를 계산하고, 그 날짜의 직항 왕복 항공권이 평소보다 쌀 때만 골라 매일 아침 알려 드려요.</p>
+      <a class="btn" href="#deals">오늘의 특가 보기</a>
+    </div>
+    <div class="hero-card" id="hero-card"></div>
+  </section>
+
+  <section id="deals">
+    <h2>오늘의 특가</h2>
+    <p class="status" id="status"></p>
+    <div class="filters" id="f-month" role="group" aria-label="출발 월"></div>
+    <div class="filters" id="f-city" role="group" aria-label="도시"></div>
+    <div class="filters" id="f-kind" role="group" aria-label="일정 종류"></div>
+    <label class="toggle" hidden><input type="checkbox" class="bag-toggle"> 짐 부치는 여행 기준으로 보기 (LCC 15kg 왕복 수하물 추정액 포함)</label>
+    <p class="filter-note" id="note" aria-live="polite"></p>
+    <ul class="deals" id="list"></ul>
+  </section>
+
+  <!-- 광고 자리: 애드센스 승인 후 광고 단위 코드를 여기에 -->
+
+  <section class="months">
+    <h2>연차 하루로 만드는 연휴</h2>
+    <p class="status">노란 칸이 연차 쓰는 날이에요. 연휴마다 주요 여행지의 오늘 직항 왕복 최저가를 보여 드려요.</p>
+    <label class="toggle" hidden><input type="checkbox" class="bag-toggle"> 짐 부치는 여행 기준으로 보기 (LCC 15kg 왕복 수하물 추정액 포함)</label>
+    <div id="months"></div>
+  </section>
+
+  <section class="subscribe" id="subscribe">
+    <div>
+      <h2>특가가 뜨면 바로 알려 드릴게요</h2>
+      <p>텔레그램 채널에서 매일 아침 한 번, 새로 찾은 특가만 보내요.</p>
+    </div>
+    <a class="btn" id="tg" href="#" target="_blank" rel="noopener">텔레그램으로 구독하기</a>
+  </section>
+
+  <footer>
+    <p>가격은 매일 아침 다시 확인한 직항 왕복 최저가 기준이며 실제 예약 시 달라질 수 있어요. 예약 전 항공사·예약 사이트에서 최종 가격을 꼭 확인하세요.</p>
+    <p>이 사이트의 링크를 통해 예약하면 운영자가 소정의 제휴 수수료를 받을 수 있어요. 이용자가 내는 금액은 같아요.</p>
+    <p>공휴일은 우주항공청 월력요항 기준이에요. 5인 미만 사업장은 공휴일 휴무가 의무가 아닐 수 있어요.</p>
+  </footer>
+</div>
+
+<script>
+const DATA = {"updated": "11월 23일 오전 9시", "mock": false, "telegram": "", "deals": [], "windows": [{"id": "20261224-20261227", "title": "연차 1일로 3박4일", "range": "12/24(목) ~ 12/27(일)", "month": "2026-12", "monthLabel": "12월", "leave": ["12/24(목)"], "holidays": ["성탄절"], "boosted": true, "days": 4, "strip": [{"m": 12, "d": 24, "wd": "목", "kind": "leave", "name": ""}, {"m": 12, "d": 25, "wd": "금", "kind": "red", "name": "성탄절"}, {"m": 12, "d": 26, "wd": "토", "kind": "sat", "name": ""}, {"m": 12, "d": 27, "wd": "일", "kind": "red", "name": ""}], "lowest": [{"city": "홍콩", "price": 393584, "depTime": "06:45", "retTime": "01:15", "arrTime": "09:50", "homeTime": "05:30", "stayH": 63, "night": false, "nightWhy": "", "warn": "", "link": "https://www.aviasales.com/search/SEL2412HKG27121?t=UO17980947001798105800000245ICNHKG17983341001798349400000195HKGICN_5a8d640596b10151d35fd04e2fa15808_24005&search_date=20112026&expected_price_uuid=01a1f908-877c-8030-2504-9311c1997ba6&static_fare_key=TY%7CP1%7CH0%7CL0%7CCH0%7CR0%7CTBC0&itinerary_key=NiUBfUaY3mtdfAK7Es7-VA&expected_price_source=share&expected_price_currency=krw&expected_price=393584&marker=783560", "airline": "홍콩익스프레스", "bag": "lcc", "addon": null, "bagText": "최저가는 위탁수하물 미포함일 수 있어요", "deal": false}, {"city": "오사카", "price": 491440, "depTime": "15:05", "retTime": "09:50", "arrTime": "16:50", "homeTime": "11:55", "stayH": 65, "night": false, "nightWhy": "", "warn": "", "link": "https://www.aviasales.com/search/SEL2412OSA27121?t=7C17981247001798131000000105ICNKIX17983650001798372500000125KIXICN_5f8e98ac199322b1ddabc153d2d7be21_30316&search_date=18112026&expected_price_uuid=01a1ecf0-749f-8031-2b80-9e4aa4ed0b5e&static_fare_key=TY%7CP1_JW%7CH1%7CL0%7CCH0%7CR0%7CTBC0&itinerary_key=s8yd1npiBeQ-vyy8y_Gfcg&expected_price_source=share&expected_price_currency=krw&expected_price=491440&marker=783560", "airline": "피치항공", "bag": "lcc", "addon": null, "bagText": "최저가는 위탁수하물 미포함일 수 있어요", "deal": false}, {"city": "도쿄", "price": 601283, "depTime": "16:40", "retTime": "08:30", "arrTime": "19:00", "homeTime": "11:50", "stayH": 62, "night": false, "nightWhy": "", "warn": "", "link": "https://www.aviasales.com/search/SEL2412TYO27121?t=MM17981304001798138800000140ICNNRT17983602001798372200000200NRTICN_107e6b6fb8dc22707fe209ec44f65b6e_36667&search_date=22112026&expected_price_uuid=01a20125-f697-8030-ae8e-b630d407691a&static_fare_key=TY%7CP1_JW%7CH1%7CL0%7CCH0%7CR0%7CTBC0&itinerary_key=hfHX-O2uUZ1R2VpOhFWrTw&expected_price_source=share&expected_price_currency=krw&expected_price=601283&marker=783560", "airline": "에어서울", "bag": "lcc", "addon": 80000, "bagText": "최저가는 위탁수하물 미포함일 수 있어요, 15kg 왕복 추가 약 80,000원(편도 40,000원×2)", "deal": false}, {"city": "상하이", "price": 657358, "depTime": "23:30", "retTime": "02:15", "arrTime": "다음날 01:00", "homeTime": "04:55", "stayH": 49, "night": false, "nightWhy": "", "warn": "", "link": "https://www.aviasales.com/search/SEL2412SHA27121?t=ZE17981550001798160400000150ICNPVG17983377001798347300000100PVGICN_ebf0b51a36bc5e3224527d6badf1706a_39801&search_date=23112026&expected_price_uuid=01a205d8-a6c9-8031-2deb-a4dbd0d1f28e&static_fare_key=TY%7CP1%7CH1%7CL1_1_15%7CCH0%7CR0%7CTBC1&itinerary_key=LyMBFXe7umGk_Nzw08C2ww&expected_price_source=share&expected_price_currency=krw&expected_price=657358&marker=783560", "airline": "이스타항공", "bag": "lcc", "addon": null, "bagText": "최저가는 위탁수하물 미포함일 수 있어요", "deal": false}, {"city": "방콕", "price": 750277, "depTime": "19:30", "retTime": "01:00", "arrTime": "23:50", "homeTime": "08:25", "stayH": 49, "night": false, "nightWhy": "", "warn": "", "link": "https://www.aviasales.com/search/SEL2412BKK27121?t=VF17981406001798156200000380ICNBKK17983332001798359900000325BKKICN_e2ce65be2c90d2aeed9312a1f87f23ba_45688&search_date=23112026&expected_price_uuid=01a207a4-222b-8030-6303-47305cfe396a&static_fare_key=TY%7CP1%7CH0%7CL1_1_15%7CCH0%7CR0%7CTBC1&itinerary_key=UEybL3CihFavV5Ys3zrRBQ&expected_price_source=share&expected_price_currency=krw&expected_price=750277&marker=783560", "airline": "제주항공", "bag": "lcc", "addon": 120000, "bagText": "최저가는 위탁수하물 미포함일 수 있어요, 15kg 왕복 추가 약 120,000원(편도 60,000원×2)", "deal": false}], "checked": true}, {"id": "20261225-20261228", "title": "연차 1일로 3박4일", "range": "12/25(금) ~ 12/28(월)", "month": "2026-12", "monthLabel": "12월", "leave": ["12/28(월)"], "holidays": ["성탄절"], "boosted": true, "days": 4, "strip": [{"m": 12, "d": 25, "wd": "금", "kind": "red", "name": "성탄절"}, {"m": 12, "d": 26, "wd": "토", "kind": "sat", "name": ""}, {"m": 12, "d": 27, "wd": "일", "kind": "red", "name": ""}, {"m": 12, "d": 28, "wd": "월", "kind": "leave", "name": ""}], "lowest": [{"city": "오사카", "price": 427032, "depTime": "18:50", "retTime": "09:50", "arrTime": "20:40", "homeTime": "11:55", "stayH": 61, "night": false, "nightWhy": "", "warn": "", "link": "https://www.aviasales.com/search/SEL2512OSA28121?t=7C17982246001798231200000110ICNKIX17984514001798458900000125KIXICN_218ed330c95f40bc3e51a3158fec8163_26045&search_date=20112026&expected_price_uuid=01a1f903-5e8f-8030-651e-9fac499a0c8b&static_fare_key=TY%7CP1_JW%7CH1%7CL0%7CCH0%7CR0%7CTBC0&itinerary_key=lCKc2U5m7mKydw29WviqhQ&expected_price_source=share&expected_price_currency=krw&expected_price=427032&marker=783560", "airline": "에어서울", "bag": "lcc", "addon": 80000, "bagText": "최저가는 위탁수하물 미포함일 수 있어요, 15kg 왕복 추가 약 80,000원(편도 40,000원×2)", "deal": false}, {"city": "후쿠오카", "price": 485511, "depTime": "17:25", "retTime": "10:30", "arrTime": "18:55", "homeTime": "12:05", "stayH": 64, "night": false, "nightWhy": "", "warn": "", "link": "https://www.aviasales.com/search/SEL2512FUK28121?t=RS17982195001798224900000090ICNFUK17984538001798459500000095FUKICN_4ab5cc25eadd3a69ed98363eacc6f2d4_29512&search_date=20112026&expected_price_uuid=01a1f9e7-4a65-8030-a2dc-77aea926ed39&static_fare_key=TY%7CP1_JW%7CH1%7CL0%7CCH0%7CR0%7CTBC0&itinerary_key=HqlpI_EeYC9iiHMMCRHFQA&expected_price_source=share&expected_price_currency=krw&expected_price=485511&marker=783560", "airline": "제주항공", "bag": "lcc", "addon": 80000, "bagText": "최저가는 위탁수하물 미포함일 수 있어요, 15kg 왕복 추가 약 80,000원(편도 40,000원×2)", "deal": false}], "checked": true}, {"id": "20261231-20270103", "title": "연차 1일로 3박4일", "range": "12/31(목) ~ 1/3(일)", "month": "2026-12", "monthLabel": "12월", "leave": ["12/31(목)"], "holidays": ["신정"], "boosted": true, "days": 4, "strip": [{"m": 12, "d": 31, "wd": "목", "kind": "leave", "name": ""}, {"m": 1, "d": 1, "wd": "금", "kind": "red", "name": "신정"}, {"m": 1, "d": 2, "wd": "토", "kind": "sat", "name": ""}, {"m": 1, "d": 3, "wd": "일", "kind": "red", "name": ""}], "lowest": [{"city": "오사카", "price": 415558, "depTime": "03:30", "retTime": "07:40", "arrTime": "05:15", "homeTime": "09:45", "stayH": 74, "night": false, "nightWhy": "", "warn": "", "link": "https://www.aviasales.com/search/SEL3112OSA03011?t=MM17986878001798694100000105ICNKIX17989620001798969500000125KIXICN_f1476a013ac81bdfc05dab16cbb83c72_25635&search_date=18112026&expected_price_uuid=01a1ecee-20a7-8031-686d-4f2a3df38a10&static_fare_key=TY%7CP1_JW%7CH1%7CL0%7CCH0%7CR0%7CTBC0&itinerary_key=XsfsJ9LukCgw-yr8KD8pgA&expected_price_source=share&expected_price_currency=krw&expected_price=415558&marker=783560", "airline": "피치항공", "bag": "lcc", "addon": null, "bagText": "최저가는 위탁수하물 미포함일 수 있어요", "deal": false}, {"city": "상하이", "price": 551841, "depTime": "20:50", "retTime": "02:15", "arrTime": "22:10", "homeTime": "04:55", "stayH": 52, "night": false, "nightWhy": "", "warn": "", "link": "https://www.aviasales.com/search/SEL3112SHA03011?t=MU17987502001798755000000140GMPSHA17989425001798952100000100PVGICN_d68d73186fc0ed02cbbee880d5a8c617_33652&search_date=22112026&expected_price_uuid=01a2013d-3088-8031-6467-9a59c3cda2da&static_fare_key=TY%7CP0%7CH0%7CL0%7CCH1%7CR0%7CTBC0&itinerary_key=uYUFmnpXORAQuToZXAf6NA&expected_price_source=share&expected_price_currency=krw&expected_price=551841&marker=783560", "airline": "상하이항공", "bag": "included", "addon": 0, "bagText": "위탁수하물 포함", "deal": false}], "checked": true}, {"id": "20270101-20270104", "title": "연차 1일로 3박4일", "range": "1/1(금) ~ 1/4(월)", "month": "2027-01", "monthLabel": "1월", "leave": ["1/4(월)"], "holidays": ["신정"], "boosted": true, "days": 4, "strip": [{"m": 1, "d": 1, "wd": "금", "kind": "red", "name": "신정"}, {"m": 1, "d": 2, "wd": "토", "kind": "sat", "name": ""}, {"m": 1, "d": 3, "wd": "일", "kind": "red", "name": ""}, {"m": 1, "d": 4, "wd": "월", "kind": "leave", "name": ""}], "lowest": [], "checked": true}, {"id": "20270205-20270209", "title": "연차 1일로 4박5일", "range": "2/5(금) ~ 2/9(화)", "month": "2027-02", "monthLabel": "2월", "leave": ["2/5(금)"], "holidays": ["설 연휴", "설날", "대체공휴일(설)"], "boosted": true, "days": 5, "strip": [{"m": 2, "d": 5, "wd": "금", "kind": "leave", "name": ""}, {"m": 2, "d": 6, "wd": "토", "kind": "red", "name": "설 연휴"}, {"m": 2, "d": 7, "wd": "일", "kind": "red", "name": "설날"}, {"m": 2, "d": 8, "wd": "월", "kind": "red", "name": "설 연휴"}, {"m": 2, "d": 9, "wd": "화", "kind": "red", "name": "대체공휴일(설)"}], "lowest": [{"city": "홍콩", "price": 397059, "depTime": "02:25", "retTime": "21:05", "arrTime": "05:30", "homeTime": "다음날 01:30", "stayH": 112, "night": false, "nightWhy": "", "warn": "연휴 다음 날 새벽 도착이라 출근 전 쉴 시간이 거의 없어요", "link": "https://www.aviasales.com/search/SEL0502HKG09021?t=UO18017943001801805400000245ICNHKG18022071001802223000000205HKGICN_8607194a059a53b44c3ee2a7e55d0cf9_24040&search_date=22112026&expected_price_uuid=01a205a7-a3d0-8031-6c5b-0ae4cae6eb30&static_fare_key=TY%7CP1%7CH0%7CL0%7CCH0%7CR0%7CTBC0&itinerary_key=4hzgf8cctq5lO63qpms-Cg&expected_price_source=share&expected_price_currency=krw&expected_price=397059&marker=783560", "airline": "홍콩익스프레스", "bag": "lcc", "addon": null, "bagText": "최저가는 위탁수하물 미포함일 수 있어요", "deal": false}, {"city": "도쿄", "price": 667606, "depTime": "08:45", "retTime": "08:30", "arrTime": "11:20", "homeTime": "11:50", "stayH": 93, "night": false, "nightWhy": "", "warn": "", "link": "https://www.aviasales.com/search/SEL0502TYO09021?t=MM18018171001801826400000155ICNNRT18021618001802173800000200NRTICN_0f01361d113595b97c57fc6922757d31_41183&search_date=18112026&expected_price_uuid=01a1ec7d-d9e5-8031-6d11-062a91d05d92&static_fare_key=TY%7CP1%7CH1%7CL1_1_15%7CCH0%7CR0%7CTBC1&itinerary_key=y4dUZ-AKcEQohCf4cV8UwA&expected_price_source=share&expected_price_currency=krw&expected_price=667606&marker=783560", "airline": "YP", "bag": "unknown", "addon": null, "bagText": "수하물 규정은 예약 화면에서 확인하세요", "deal": false}], "checked": true}, {"id": "20270206-20270210", "title": "연차 1일로 4박5일", "range": "2/6(토) ~ 2/10(수)", "month": "2027-02", "monthLabel": "2월", "leave": ["2/10(수)"], "holidays": ["설 연휴", "설날", "대체공휴일(설)"], "boosted": true, "days": 5, "strip": [{"m": 2, "d": 6, "wd": "토", "kind": "red", "name": "설 연휴"}, {"m": 2, "d": 7, "wd": "일", "kind": "red", "name": "설날"}, {"m": 2, "d": 8, "wd": "월", "kind": "red", "name": "설 연휴"}, {"m": 2, "d": 9, "wd": "화", "kind": "red", "name": "대체공휴일(설)"}, {"m": 2, "d": 10, "wd": "수", "kind": "leave", "name": ""}], "lowest": [], "checked": true}, {"id": "20270226-20270301", "title": "연차 1일로 3박4일", "range": "2/26(금) ~ 3/1(월)", "month": "2027-02", "monthLabel": "2월", "leave": ["2/26(금)"], "holidays": ["삼일절"], "boosted": true, "days": 4, "strip": [{"m": 2, "d": 26, "wd": "금", "kind": "leave", "name": ""}, {"m": 2, "d": 27, "wd": "토", "kind": "sat", "name": ""}, {"m": 2, "d": 28, "wd": "일", "kind": "red", "name": ""}, {"m": 3, "d": 1, "wd": "월", "kind": "red", "name": "삼일절"}], "lowest": [], "checked": true}, {"id": "20270227-20270302", "title": "연차 1일로 3박4일", "range": "2/27(토) ~ 3/2(화)", "month": "2027-02", "monthLabel": "2월", "leave": ["3/2(화)"], "holidays": ["삼일절"], "boosted": true, "days": 4, "strip": [{"m": 2, "d": 27, "wd": "토", "kind": "sat", "name": ""}, {"m": 2, "d": 28, "wd": "일", "kind": "red", "name": ""}, {"m": 3, "d": 1, "wd": "월", "kind": "red", "name": "삼일절"}, {"m": 3, "d": 2, "wd": "화", "kind": "leave", "name": ""}], "lowest": [], "checked": true}, {"id": "20270430-20270503", "title": "연차 1일로 3박4일", "range": "4/30(금) ~ 5/3(월)", "month": "2027-04", "monthLabel": "4월", "leave": ["4/30(금)"], "holidays": ["노동절", "대체공휴일(노동절)"], "boosted": true, "days": 4, "strip": [{"m": 4, "d": 30, "wd": "금", "kind": "leave", "name": ""}, {"m": 5, "d": 1, "wd": "토", "kind": "red", "name": "노동절"}, {"m": 5, "d": 2, "wd": "일", "kind": "red", "name": ""}, {"m": 5, "d": 3, "wd": "월", "kind": "red", "name": "대체공휴일(노동절)"}], "lowest": [], "checked": true}, {"id": "20270501-20270505", "title": "연차 1일로 4박5일", "range": "5/1(토) ~ 5/5(수)", "month": "2027-05", "monthLabel": "5월", "leave": ["5/4(화)"], "holidays": ["노동절", "대체공휴일(노동절)", "어린이날"], "boosted": true, "days": 5, "strip": [{"m": 5, "d": 1, "wd": "토", "kind": "red", "name": "노동절"}, {"m": 5, "d": 2, "wd": "일", "kind": "red", "name": ""}, {"m": 5, "d": 3, "wd": "월", "kind": "red", "name": "대체공휴일(노동절)"}, {"m": 5, "d": 4, "wd": "화", "kind": "leave", "name": ""}, {"m": 5, "d": 5, "wd": "수", "kind": "red", "name": "어린이날"}], "lowest": [], "checked": true}, {"id": "20270513-20270516", "title": "연차 1일로 3박4일", "range": "5/13(목) ~ 5/16(일)", "month": "2027-05", "monthLabel": "5월", "leave": ["5/14(금)"], "holidays": ["부처님오신날"], "boosted": true, "days": 4, "strip": [{"m": 5, "d": 13, "wd": "목", "kind": "red", "name": "부처님오신날"}, {"m": 5, "d": 14, "wd": "금", "kind": "leave", "name": ""}, {"m": 5, "d": 15, "wd": "토", "kind": "sat", "name": ""}, {"m": 5, "d": 16, "wd": "일", "kind": "red", "name": ""}], "lowest": [], "checked": true}, {"id": "20270716-20270719", "title": "연차 1일로 3박4일", "range": "7/16(금) ~ 7/19(월)", "month": "2027-07", "monthLabel": "7월", "leave": ["7/16(금)"], "holidays": ["제헌절", "대체공휴일(제헌절)"], "boosted": true, "days": 4, "strip": [{"m": 7, "d": 16, "wd": "금", "kind": "leave", "name": ""}, {"m": 7, "d": 17, "wd": "토", "kind": "red", "name": "제헌절"}, {"m": 7, "d": 18, "wd": "일", "kind": "red", "name": ""}, {"m": 7, "d": 19, "wd": "월", "kind": "red", "name": "대체공휴일(제헌절)"}], "lowest": [{"city": "방콕", "price": 759819, "depTime": "10:20", "retTime": "23:10", "arrTime": "14:10", "homeTime": "다음날 06:35", "stayH": 81, "night": false, "nightWhy": "", "warn": "연휴 다음 날 새벽 도착이라 출근 전 쉴 시간이 거의 없어요", "link": "https://www.aviasales.com/search/SEL1607BKK19071?t=TG18157332001815747000000350ICNBKK18160386001816065300000325BKKICN_dce39dbcbfce879e2a2929fff921a7b9_46168&search_date=23112026&expected_price_uuid=01a2089c-8622-8030-ac52-b9526171af75&static_fare_key=TY%7CP1%7CH1%7CL1_1_23%7CCH0%7CR0%7CTBC1&itinerary_key=5ouXpb0Jl0AIZJ6gCAZzcw&expected_price_source=share&expected_price_currency=krw&expected_price=759819&marker=783560", "airline": "타이항공", "bag": "included", "addon": 0, "bagText": "위탁수하물 포함", "deal": false}], "checked": true}, {"id": "20270717-20270720", "title": "연차 1일로 3박4일", "range": "7/17(토) ~ 7/20(화)", "month": "2027-07", "monthLabel": "7월", "leave": ["7/20(화)"], "holidays": ["제헌절", "대체공휴일(제헌절)"], "boosted": true, "days": 4, "strip": [{"m": 7, "d": 17, "wd": "토", "kind": "red", "name": "제헌절"}, {"m": 7, "d": 18, "wd": "일", "kind": "red", "name": ""}, {"m": 7, "d": 19, "wd": "월", "kind": "red", "name": "대체공휴일(제헌절)"}, {"m": 7, "d": 20, "wd": "화", "kind": "leave", "name": ""}], "lowest": [], "checked": false}]};
+const $ = (s) => document.querySelector(s);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const won = (n) => n.toLocaleString("ko-KR") + "원";
+const state = { month: "all", city: "all", kind: "all", win: null, bags: false };
+
+// 짐 부치는 여행: LCC는 수하물 추정액을 더한 가격
+const eff = (o) => (state.bags && o.bag === "lcc" && o.addon) ? o.price + o.addon : o.price;
+const adjusted = (o) => state.bags && o.bag === "lcc" && o.addon;
+const hasAddon = DATA.deals.some(o => o.addon) || DATA.windows.some(w => w.lowest.some(o => o.addon));
+
+function strip(cells) {
+  const s = el("div", "strip");
+  for (const c of cells) {
+    const d = el("div", "day " + c.kind);
+    d.append(el("div", "wd", c.wd), el("div", "dd", c.d));
+    const tag = c.kind === "leave" ? "연차" : (c.name || "").replace(/^대체공휴일.*/, "대체휴일");
+    d.append(el("span", "tag", tag));
+    if (c.name) d.title = c.name;
+    s.append(d);
+  }
+  return s;
+}
+
+function bagLine(o) {
+  const b = el("div", "bag " + o.bag);
+  if (o.bag === "lcc") {
+    b.append(`${o.airline}, `, el("b", null, "위탁수하물 미포함일 수 있어요"));
+    if (o.addon) b.append(` (15kg 왕복 추가 약 ${won(o.addon)})`);
+  } else {
+    b.textContent = `${o.airline}, ${o.bagText}`;
+  }
+  return b;
+}
+
+function stayLine(o) {
+  if (o.stayH == null) return null;
+  const s = el("div", "stay");
+  if (o.night) s.append(el("span", "badge night", "밤도깨비"));
+  s.append(`현지 체류 약 ${o.stayH}시간`);
+  if (o.night) s.append(el("span", "stay-why", o.nightWhy));
+  return s;
+}
+
+function chipRow(root, items, key) {
+  root.replaceChildren();
+  for (const [val, label] of items) {
+    const b = el("button", "chip", label);
+    b.type = "button";
+    b.setAttribute("aria-pressed", String(state[key] === val));
+    b.onclick = () => { state[key] = val; state.win = null; render(); };
+    root.append(b);
+  }
+}
+
+function render() {
+  const months = [...new Map(DATA.deals.map(d => [d.month, d.monthLabel])).entries()].sort();
+  const cities = [...new Set(DATA.deals.map(d => d.city))];
+  chipRow($("#f-month"), [["all", "전체 기간"], ...months], "month");
+  chipRow($("#f-city"), [["all", "모든 도시"], ...cities.map(c => [c, c])], "city");
+  const nNight = DATA.deals.filter(d => d.night).length;
+  chipRow($("#f-kind"), [["all", "모든 일정"], ["full", `알찬 일정 ${DATA.deals.length - nNight}`], ["night", `밤도깨비 ${nNight}`]], "kind");
+
+  const list = DATA.deals.filter(d =>
+    (state.month === "all" || d.month === state.month) &&
+    (state.city === "all" || d.city === state.city) &&
+    (state.kind === "all" || (state.kind === "night") === d.night) &&
+    (!state.win || d.id === state.win));
+
+  const note = $("#note");
+  note.replaceChildren();
+  if (state.win) {
+    const w = DATA.windows.find(x => x.id === state.win) || DATA.deals.find(x => x.id === state.win);
+    note.append(`${w ? w.range : ""} 일정만 보고 있어요. `);
+    const clear = el("button", null, "전체 보기");
+    clear.onclick = () => { state.win = null; render(); };
+    note.append(clear);
+  }
+
+  const ul = $("#list");
+  ul.replaceChildren();
+  if (!list.length) {
+    ul.append(el("li", "empty", state.win
+      ? "이 일정은 오늘 특가가 없어요. 아래 연휴별 최저가를 확인해 보세요."
+      : "오늘은 평소보다 확실히 싼 항공권이 없어요. 아래에서 연휴별 오늘의 최저가를 볼 수 있어요."));
+    return;
+  }
+  for (const d of list) {
+    const li = el("li", "deal");
+    const who = el("div", "who");
+    who.append(el("div", "city", d.city), el("div", "meta", d.range), el("div", "meta", `${d.title} 직항`));
+    if (d.depTime) who.append(
+      el("div", "times", `가는 편 ${d.depTime} 출발` + (d.arrTime ? `, ${d.arrTime} 도착` : "")),
+      el("div", "times", `오는 편 ${d.retTime} 출발` + (d.homeTime ? `, ${d.homeTime} 도착` : "")));
+    const st = stayLine(d);
+    if (st) who.append(st);
+    if (d.warn) who.append(el("div", "warn", d.warn));
+    who.append(bagLine(d));
+    const pb = el("div", "pricebox");
+    pb.append(el("div", "price", won(eff(d))));
+    if (adjusted(d)) pb.append(el("div", "adj", "15kg 왕복 수하물 추정 포함"));
+    else if (state.bags && d.bag === "lcc") pb.append(el("div", "adj", "수하물 요금 미확인"));
+    pb.append(el("div", "why", d.reason));
+    const act = el("div", "act");
+    if (d.link) {
+      const a = el("a", "btn", "가격 확인하기");
+      a.href = d.link; a.target = "_blank"; a.rel = "noopener sponsored";
+      act.append(a);
+    }
+    li.append(who, strip(d.strip), pb, act);
+    ul.append(li);
+  }
+}
+
+function renderHero() {
+  const pick = DATA.windows.find(w => w.days >= 5) || DATA.windows[0];
+  const card = $("#hero-card");
+  if (!pick) return;
+  card.append(strip(pick.strip));
+  card.append(el("p", "cap", `${pick.range}, ${pick.leave[0] || ""} 하루만 쉬면 ${pick.days}일`));
+}
+
+const SHOW = 5;
+const expanded = new Set();
+
+function lowestList(w) {
+  const ul = el("ul", "low");
+  if (!w.checked) { ul.append(el("li", "none", "아직 먼 일정이라 가격은 가까워지면 보여 드려요.")); return ul; }
+  if (!w.lowest.length) { ul.append(el("li", "none", "오늘은 이 일정의 직항 가격을 찾지 못했어요.")); return ul; }
+  const items = [...w.lowest].sort((a, b) => eff(a) - eff(b));
+  const shown = expanded.has(w.id) ? items : items.slice(0, SHOW);
+  for (const o of shown) {
+    const li = el("li");
+    const row = el(o.link ? "a" : "div", o.link ? null : "row");
+    if (o.link) { row.href = o.link; row.target = "_blank"; row.rel = "noopener sponsored"; }
+    const c = el("div", "c", o.city);
+    if (o.deal) c.append(el("span", "badge", "특가"));
+    if (o.night) c.append(el("span", "badge night", "밤도깨비"));
+    if (o.warn) c.append(el("span", "badge warn", "새벽 귀국"));
+    const bagShort = adjusted(o) ? "15kg 왕복 수하물 추정 포함" : (state.bags && o.bag === "lcc") ? "수하물 요금 미확인" : o.bag === "lcc" ? "수하물 별도" : (o.bag === "included" ? "수하물 포함" : "수하물 확인 필요");
+    const sub = el("div", "sub", `${o.airline}, ${bagShort}` + (o.stayH != null ? `, 현지 ${o.stayH}시간` : "") + (o.depTime ? `\n가는 편 ${o.depTime} 출발, 오는 편 ${o.retTime} 출발` : ""));
+    const p = el("div", "p", won(eff(o)));
+    row.append(c, sub, p);
+    li.append(row);
+    ul.append(li);
+  }
+  if (items.length > SHOW) {
+    const li = el("li");
+    const more = el("button", "more", expanded.has(w.id) ? "접기" : `${items.length - SHOW}곳 더 보기`);
+    more.type = "button";
+    more.onclick = () => { expanded.has(w.id) ? expanded.delete(w.id) : expanded.add(w.id); renderMonths(); };
+    li.append(more);
+    ul.append(li);
+  }
+  return ul;
+}
+
+function renderMonths() {
+  const root = $("#months");
+  root.replaceChildren();
+  const groups = new Map();
+  for (const w of DATA.windows) {
+    const key = w.month.slice(0, 4) + "년 " + w.monthLabel;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(w);
+  }
+  for (const [label, ws] of groups) {
+    const m = el("div", "month");
+    m.append(el("h3", null, label));
+    for (const w of ws) {
+      const row = el("div", "win");
+      row.append(strip(w.strip));
+      const desc = el("div", "desc");
+      desc.append(el("b", null, w.title), ` ${w.range}, ${w.holidays.join(", ")}`);
+      row.append(desc, lowestList(w));
+      const n = DATA.deals.filter(d => d.id === w.id).length;
+      if (n) {
+        const foot = el("div", "foot");
+        const b = el("button", "btn ghost", `이 연휴 특가 ${n}건 자세히 보기`);
+        b.type = "button";
+        b.onclick = () => { state.win = w.id; state.month = "all"; state.city = "all"; render(); $("#deals").scrollIntoView({ behavior: "smooth" }); };
+        foot.append(b);
+        row.append(foot);
+      }
+      m.append(row);
+    }
+    root.append(m);
+  }
+}
+
+if (DATA.mock) $("#mock").hidden = false;
+if (hasAddon) {
+  document.querySelectorAll(".toggle").forEach(t => t.hidden = false);
+  document.querySelectorAll(".bag-toggle").forEach(cb => cb.onchange = () => {
+    state.bags = cb.checked;
+    document.querySelectorAll(".bag-toggle").forEach(x => x.checked = cb.checked);
+    render(); renderMonths();
+  });
+}
+$("#status").textContent = DATA.deals.length
+  ? `${DATA.updated} 기준, 평소보다 싼 직항 항공권 ${DATA.deals.length}건을 찾았어요.`
+  : `${DATA.updated} 기준, 오늘은 특가가 없어요.`;
+if (DATA.telegram) { $("#tg").href = DATA.telegram; $("#tg-top").href = DATA.telegram; $("#tg-top").target = "_blank"; }
+renderHero();
+render();
+renderMonths();
+</script>
+</body>
+</html>

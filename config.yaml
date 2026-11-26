@@ -1,0 +1,45 @@
+# 출발지 (Aviasales 도시 코드: SEL=인천+김포, PUS=부산)
+origins: [SEL]
+
+# 목적지: name=알림에 표시할 이름, cap=콜드스타트용 목표가(왕복, 원). 운영하면서 조정하세요.
+destinations:
+  OSA: {name: 오사카, cap: 250000}
+  TYO: {name: 도쿄, cap: 300000}
+  FUK: {name: 후쿠오카, cap: 200000}
+  SPK: {name: 삿포로, cap: 350000}
+  TPE: {name: 타이베이, cap: 250000}
+  HKG: {name: 홍콩, cap: 300000}
+  SHA: {name: 상하이, cap: 250000}
+  DAD: {name: 다낭, cap: 320000}
+  BKK: {name: 방콕, cap: 380000}
+  CEB: {name: 세부, cap: 330000}
+
+currency: krw
+direct_only: true         # 직항만 (연차 하루 여행에 경유는 의미 없음)
+market: null              # 필요하면 Travelpayouts 문서 확인 후 지정
+lead_days: 7              # 오늘로부터 며칠 이후 출국부터 볼지
+horizon_days: 240         # 얼마나 먼 미래까지 볼지
+min_trip_days: 3          # 최소 연휴 길이 (3 = 2박3일)
+include_plain_weekends: true   # false면 공휴일 낀 '꿀연휴'만
+request_interval_sec: 0.5
+
+deal:
+  threshold: 0.25         # 노선 평소가 대비 25% 이상 저렴하면 특가
+  trip_drop: 0.20         # 같은 날짜 최근가 대비 20% 이상 하락
+  baseline_days: 60
+  min_samples: 8
+  realert_drop: 0.05      # 이미 보낸 특가는 5% 더 떨어져야 재알림
+  verify_tolerance: 0.05  # 발송 직전 재조회 시 5% 넘게 올랐으면 제외
+
+max_alerts_per_run: 10
+
+stay:
+  short_ratio: 0.65        # 현지 체류가 (박수×24시간)의 65% 미만이면 '밤도깨비'로 분류
+
+lowest:
+  max_windows: 12          # 가까운 순으로 몇 개 연휴의 '오늘의 최저가'를 보여줄지 (연휴 1개당 목적지 수만큼 API 호출)
+
+site:
+  url: ""                  # GitHub Pages 주소 (예: https://아이디.github.io/yeoncha/)
+  telegram_url: ""         # 텔레그램 채널 주소 (예: https://t.me/채널아이디)
+  max_deals: 60            # 사이트에 보여줄 최대 특가 수
