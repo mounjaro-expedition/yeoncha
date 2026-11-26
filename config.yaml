@@ -27,7 +27,8 @@ deal:
   threshold: 0.25         # 노선 평소가 대비 25% 이상 저렴하면 특가
   trip_drop: 0.20         # 같은 날짜 최근가 대비 20% 이상 하락
   baseline_days: 60
-  min_samples: 8
+  min_samples: 8           # 같은 구성 일정의 과거 기록이 이만큼 쌓이면 '평소 대비'로 판정
+  market_min_samples: 4    # 기록이 부족할 땐 오늘 수집한 같은 구성 다른 날짜가 이만큼 있으면 비교
   realert_drop: 0.05      # 이미 보낸 특가는 5% 더 떨어져야 재알림
   verify_tolerance: 0.05  # 발송 직전 재조회 시 5% 넘게 올랐으면 제외
 

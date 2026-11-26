@@ -40,13 +40,11 @@ class Store:
         )
         self.db.commit()
 
-    def route_prices(self, origin, dest, since: date, nights=None) -> list:
-        q = "SELECT price FROM prices WHERE origin=? AND destination=? AND observed>=?"
-        args = [origin, dest, since.isoformat()]
-        if nights is not None:
-            q += " AND nights=?"
-            args.append(nights)
-        return [r[0] for r in self.db.execute(q, args)]
+    def route_rows(self, origin, dest, since: date) -> list:
+        """노선의 최근 관측 (출국일, 귀국일, 가격). 일정 구성 비교는 호출하는 쪽에서."""
+        return self.db.execute(
+            "SELECT depart, ret, price FROM prices WHERE origin=? AND destination=? AND observed>=?",
+            (origin, dest, since.isoformat())).fetchall()
 
     def trip_prices_before(self, origin, dest, depart, ret, today: date) -> list:
         return [r[0] for r in self.db.execute(

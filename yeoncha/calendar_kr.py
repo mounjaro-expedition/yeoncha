@@ -12,6 +12,16 @@ def load_holidays(path) -> dict:
     return {date.fromisoformat(h["date"]): h["name"] for h in data["holidays"]}
 
 
+def composition(depart, ret, holidays) -> tuple:
+    """(총 일수, 쉬는 날 수). 쉬는 날 = 주말 + 공휴일. 문자열 날짜도 받는다."""
+    if isinstance(depart, str):
+        depart, ret = date.fromisoformat(depart), date.fromisoformat(ret)
+    days = (ret - depart).days + 1
+    off = sum(1 for i in range(days)
+              if (depart + timedelta(i)).weekday() >= 5 or (depart + timedelta(i)) in holidays)
+    return days, off
+
+
 def fmt(d: date) -> str:
     return f"{d.month}/{d.day}({WEEKDAYS[d.weekday()]})"
 

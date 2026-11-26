@@ -83,7 +83,7 @@ def cmd_run(args):
         offers = collect_real(cfg, windows)
 
     print(f"연휴 구간 {len(windows)}개 / 수집 가격 {len(offers)}건")
-    deals = find_deals(store, windows, offers, cfg, today)  # 오늘 저장 전에 판정 (오늘 값이 기준선 오염 X)
+    deals = find_deals(store, windows, offers, cfg, today, load_holidays(ROOT / "data" / "holidays_kr.json"))  # 오늘 저장 전에 판정 (오늘 값이 기준선 오염 X)
     store.save_offers(offers, today)
     deals = deals[: cfg["site"]["max_deals"]]
 

@@ -51,7 +51,6 @@ def fetch_prices(token, origin, destination, depart_month, return_month, cfg) ->
         "origin": origin,
         "destination": destination,
         "departure_at": depart_month,
-        "return_at": return_month,
         "one_way": "false",
         "currency": cfg.get("currency", "krw"),
         "sorting": "price",
@@ -59,6 +58,8 @@ def fetch_prices(token, origin, destination, depart_month, return_month, cfg) ->
         "page": 1,
         "token": token,
     }
+    if return_month:  # 비우면 귀국일 제한 없이 왕복 전체
+        params["return_at"] = return_month
     if cfg.get("direct_only", True):
         params["direct"] = "true"
     if cfg.get("market"):
