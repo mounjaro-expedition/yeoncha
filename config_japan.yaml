@@ -42,11 +42,11 @@ market: null
 request_interval_sec: 0.3
 
 lead_days: 1          # 내일 출발부터
-horizon_days: 90      # 3개월 안
+horizon_days: 180     # 6개월 안 (미리 끊어두는 사람용)
 min_nights: 0         # 0 = 당일치기
 max_nights: 5         # 5박6일까지
 min_stay_hours: 4     # 현지 체류가 이보다 짧으면 제외 (진료·수령 시간 확보)
-per_day_keep: 3       # 출발공항·출발일·일정 길이마다 싼 순으로 몇 개씩 남길지 (달력용)
+per_day_keep: 2       # 출발공항·출발일·일정 길이마다 싼 순으로 몇 개씩 남길지 (달력용)
 
 # true면 출국월·귀국월을 짝지어 조회 (호출 수 2배). 실데이터에서 왕복 결과가 안 나오면 true로.
 return_month_pairs: false
@@ -55,7 +55,10 @@ site:
   url: ""             # 예: https://아이디.github.io/저장소/japan/
   telegram_url: ""    # 원정대 텔레그램 채널 주소
   esim_url: ""        # 일본 eSIM 제휴 링크 (Travelpayouts 등). 비우면 안 보여요.
-  max_items: 5000     # 사이트에 담을 최대 항공권 수
+  # 숙소 검색 링크 틀. {city_en} {city_ko} {checkin} {checkout} 자리에 자동으로 채워져요.
+  # 아래 기본값은 수수료 없는 일반 검색 링크예요. 제휴 링크가 생기면 그 형식으로 바꾸세요.
+  hotel_url: "https://www.booking.com/searchresults.ko.html?ss={city_en}&checkin={checkin}&checkout={checkout}&group_adults=1&no_rooms=1"
+  max_items: 12000    # 사이트에 담을 최대 항공권 수
 
 telegram:
-  top_per_group: 3    # 당일치기 / 1~2박 / 3~5박 그룹별 몇 개씩 보낼지
+  top_per_group: 5    # 당일치기 / 1~2박 / 3~5박 그룹별 몇 개씩 (같은 도시는 하나만)

@@ -74,7 +74,7 @@ def mock_offers(cfg, start, end, rng):
     offers = []
     for o, dests in routes.items():
         for d in dests:
-            for _ in range(70):
+            for _ in range(70 * (end - start).days // 90):  # 기간에 비례
                 dep = start + timedelta(days=rng.randint(0, (end - start).days))
                 n = rng.choice([0, 0, 1, 1, 2, 2, 3, 4, 5])
                 ret = dep + timedelta(n)
@@ -127,51 +127,103 @@ def to_json(o, cfg, holidays, airlines, marker):
         "retTime": o.ret_time, "homeTime": o.home_time,
         "stayH": round(o.stay_h) if o.stay_h is not None else None,
         "link": flights.build_link(o.link, marker) or "",
+        "hotel": hotel_link(cfg, o.destination, o.depart, o.ret) if n > 0 else "",
         **bag_info(o.airline, airlines, o.destination),
     }
+
+
+CITY_EN = {"FUK": "Fukuoka", "OSA": "Osaka", "TYO": "Tokyo", "NGO": "Nagoya", "SPK": "Sapporo",
+           "OKA": "Naha", "KKJ": "Kitakyushu", "OIT": "Oita", "KMJ": "Kumamoto", "KOJ": "Kagoshima",
+           "NGS": "Nagasaki", "HSG": "Saga", "HIJ": "Hiroshima", "OKJ": "Okayama", "TAK": "Takamatsu",
+           "MYJ": "Matsuyama", "YGJ": "Yonago", "UBJ": "Ube", "KMQ": "Komatsu", "FSZ": "Shizuoka",
+           "TOY": "Toyama", "SDJ": "Sendai", "KIJ": "Niigata", "IBR": "Mito", "AOJ": "Aomori"}
+
+
+def hotel_link(cfg, dest, checkin, checkout):
+    tpl = cfg.get("site", {}).get("hotel_url", "")
+    if not tpl:
+        return ""
+    from urllib.parse import quote
+    return (tpl.replace("{city_en}", quote(CITY_EN.get(dest, dest)))
+               .replace("{city_ko}", quote(cfg["destinations"].get(dest, dest)))
+               .replace("{checkin}", checkin).replace("{checkout}", checkout))
+
+
+def slim(x):
+    """사이트용 짧은 형식 (이름·날짜 표기는 페이지에서 계산해서 용량 절약)."""
+    return [x["from"], x["to"], x["dep"], x["nights"], x["leave"], x["price"],
+            x["depTime"], x["arrTime"], x["retTime"], x["homeTime"], x["stayH"],
+            x["link"], x["bag"], x["addon"], x["airline"], x["hotel"]]
 
 
 def build_site(items, cfg, today, mock, out, holidays):
     site = cfg.get("site", {})
     data = {"updated": f"{today.month}월 {today.day}일 오전 9시", "mock": mock,
             "telegram": site.get("telegram_url", ""), "esim": site.get("esim_url", ""),
-            "origins": cfg["origins"], "items": items[: site.get("max_items", 5000)],
+            "origins": cfg["origins"], "dests": cfg["destinations"],
+            "rows": [slim(x) for x in items[: site.get("max_items", 12000)]],
             "today": today.isoformat(),
             "holidays": sorted(d.isoformat() for d in holidays if d >= today)}
-    payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     html = TEMPLATE.read_text(encoding="utf-8").replace("__DATA__", payload).replace("__SITE_URL__", site.get("url", ""))
     out.mkdir(parents=True, exist_ok=True)
     (out / "index.html").write_text(html, encoding="utf-8")
     return out / "index.html"
 
 
+def _bag_short(x):
+    if x["bag"] == "included":
+        return "수하물 포함"
+    if x["bag"] == "lcc":
+        return f"수하물 별도(+{x['addon'] // 10000}만원)" if x["addon"] else "수하물 별도"
+    return "수하물 확인 필요"
+
+
+def _pick_diverse(rows, k):
+    """싼 순서로 고르되 같은 도착 도시는 한 번만 (일정이 다양하게 보이도록)."""
+    out, seen = [], set()
+    for x in rows:
+        if x["to"] in seen:
+            continue
+        seen.add(x["to"])
+        out.append(x)
+        if len(out) == k:
+            break
+    return out
+
+
 def build_digest(items, cfg, today, mock):
     groups = [("☀️ 당일치기", lambda x: x["nights"] == 0),
               ("🌙 1~2박", lambda x: 1 <= x["nights"] <= 2),
               ("🧳 3~5박", lambda x: x["nights"] >= 3)]
-    k = cfg.get("telegram", {}).get("top_per_group", 3)
+    k = cfg.get("telegram", {}).get("top_per_group", 5)
+    nums = "①②③④⑤⑥⑦⑧⑨⑩"
     test = "[테스트 데이터] " if mock else ""
-    lines = [f"🇯🇵 {test}<b>비만주사 원정대</b> {today:%m/%d} 일본 왕복 최저가"]
+    lines = [f"🇯🇵 {test}<b>비만주사 원정대</b>  {today.month}/{today.day} 일본 왕복 최저가",
+             "<i>같은 도시는 가장 싼 일정 하나만 보여드려요</i>"]
     for title, cond in groups:
-        g = [x for x in items if cond(x)][:k]
+        g = _pick_diverse([x for x in items if cond(x)], k)
         if not g:
             continue
         lines.append(f"\n<b>{title}</b>")
-        for x in g:
-            stay = f", 현지 {x['stayH']}시간" if x["stayH"] is not None else ""
-            leave = "연차 0일" if x["leave"] == 0 else f"연차 {x['leave']}일"
-            row = (f"<b>{x['price']:,}원</b> {escape(x['fromName'])}→{escape(x['toName'])} "
-                   f"{x['range']} {x['len']}{stay}, {leave}\n   {escape(x['airline'])}, "
-                   f"{x['depTime']} 출발 / 귀국편 {x['retTime']}")
+        for n, x in enumerate(g):
+            head = f"{nums[n]} <b>{x['price']:,}원</b>  {escape(x['fromName'])} → {escape(x['toName'])}"
             if x["link"]:
-                row += f' <a href="{escape(x["link"])}">예약</a>'
-            lines.append(row)
+                head += f'  <a href="{escape(x["link"])}">예약</a>'
+            when = x["range"] if x["nights"] == 0 else f"{x['range']} {x['len']}"
+            go = f"{x['depTime']}→{x['arrTime'].replace('다음날 ', '+1 ')}" if x["arrTime"] else x["depTime"]
+            back = f"{x['retTime']}→{x['homeTime'].replace('다음날 ', '+1 ')}" if x["homeTime"] else x["retTime"]
+            info = [escape(x["airline"]), _bag_short(x)]
+            if x["nights"] == 0 and x["stayH"] is not None:
+                info.append(f"현지 {x['stayH']}시간")
+            if x["leave"] == 0:
+                info.append("연차 없이")
+            lines += [head, f"    {when}", f"    가는 {go}  /  오는 {back}", f"    {' · '.join(info)}"]
     site = cfg.get("site", {}).get("url")
-    if site:
-        lines.append(f'\n📅 날짜별 최저가 달력: <a href="{escape(site)}">사이트에서 보기</a>')
-    lines.append("\n<i>※ 오늘 아침 기준 직항 왕복 최저가(수하물 별도일 수 있음)이며 변동될 수 있어요."
-                 "\n※ 의약품 반입 기준은 관세청(125)에서 꼭 확인하세요."
-                 "\n※ 링크를 통해 예약하면 운영자가 소정의 수수료를 받을 수 있어요.</i>")
+    lines.append(f"\n📅 전체 {len(items):,}건, 날짜별 달력·숙소는 "
+                 + (f'<a href="{escape(site)}">사이트에서</a>' if site else "사이트에서"))
+    lines.append("<i>※ 오늘 아침 기준 직항 왕복 최저가이며 변동될 수 있어요. 반입 기준은 관세청(125) 확인.\n"
+                 "※ 링크로 예약하면 운영자가 소정의 수수료를 받을 수 있어요.</i>")
     return "\n".join(lines)
 
 
